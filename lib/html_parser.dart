@@ -350,9 +350,10 @@ class HtmlParser extends StatelessWidget {
               .call(newContext, selectableBuildChildren);
         }
         if (newContext.parser.selectable) {
-          return customRenders[entry]!
-              .inlineSpan!
-              .call(newContext, buildChildren);
+          final renderEntry = customRenders[entry]!;
+          if (renderEntry.inlineSpan != null) {
+            return renderEntry.inlineSpan!.call(newContext, buildChildren);
+          }
         }
         if (customRenders[entry]?.inlineSpan != null) {
           return customRenders[entry]!
