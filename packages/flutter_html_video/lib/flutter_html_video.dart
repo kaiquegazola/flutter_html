@@ -1,12 +1,13 @@
 library flutter_html_video;
 
+import 'dart:io';
+
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:video_player/video_player.dart';
 import 'package:html/dom.dart' as dom;
-import 'dart:io';
+import 'package:video_player/video_player.dart';
 
 /// [VideoHtmlExtension] adds support for the <video> tag to the flutter_html
 /// library.
@@ -83,8 +84,9 @@ class _VideoWidgetState extends State<VideoWidget> {
               VideoPlayerController.file(File.fromUri(sourceUri));
           break;
         default:
-          _videoController =
-              VideoPlayerController.network(sourceUri.toString());
+          _videoController = VideoPlayerController.networkUrl(
+            Uri.parse(sourceUri.toString()),
+          );
           break;
       }
       _chewieController = ChewieController(
